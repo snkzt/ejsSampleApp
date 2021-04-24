@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>CRUD app with node.js x sqlite3</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script>
+      function deleteRecord(obj) {
+        document.getElementById("target").value = obj.value;
+        document.getElementById("action").value = "delete";
+        document.frm.submit();
+      }
+    </script>
+  </head>
+  <body>
+    <h1>CRUD app with node.js x sqlite3</h1>
+
+    <form action="/" method="post" name="frm">
+    
+      <fieldset style="width:450px">
+        <legend> Search</legend>
+        <input type="text" name="searchText" placeholder="use % as a wildcard" style="width:250px"/>
+        <button type="submit" name="submitBtn" value="search">Search</button>
+        <button type="submit" name="submitBtn" value="reload">Reload</button>
+      </fieldset>
+      <br/>
+      <table style="border:1">
+        <p><%= messages %></p>
+        <tr style="background-color:#cdcdcd"><th> </th><th>id</th><th>Name</th></tr>
+        <% users.forEach(function(user) {%>
+          <tr>
+          <td><button type="button" name="submitBtn" value="<%= user.id %>" onclick="deleteRecord(this)">Delete</button></td>
+          <td><%= user.id %></td><td><%= user.name %></td>
+          <% }) %>
+        </tr>
+      </table>
+      <br/>
+      <br/>
+
+      <fieldset style="width:350px">
+        <legend> Register</legend>
+        Name <input type="text" name="name"/>
+        <button type="submit" name="submitBtn" value="add">Register</button>
+
+        <input type="hidden" id="target" name="target" value="">
+        <input type="hidden" id="action" name="action" value="">
+      </fieldset>
+    </form>
+  </body>
+</html>
